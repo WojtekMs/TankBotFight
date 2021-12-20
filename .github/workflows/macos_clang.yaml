@@ -34,13 +34,16 @@ jobs:
         run: ./vcpkg/bootstrap-vcpkg.sh
            
       - name: Create Build Environment
-        run: cmake -E make_directory ${{runner.workspace}}/build
+        run: |
+	   cmake -E make_directory ${{runner.workspace}}/build
+           wget https://github.com/llvm/llvm-project/releases/download/llvmorg-12.0.1/clang+llvm-12.0.1-amd64-unknown-freebsd12.tar.xz -O clang-12.0.1
+           tar -xf clang-12.0.1 -C ${{runner.workspace}}/clang-12.0.1
 
       - name: Configure CMake
         shell: bash
         env:
-          CC: /usr/local/opt/llvm/bin/clang
-          CXX: /usr/local/opt/llvm/bin/clang++
+          CC: ${{runner.workspace}}/clang-12.0.1/bin/clang
+          CXX: ${{runner.workspace}}/clang-12.0.1/bin/clang++
         working-directory: ${{runner.workspace}}/build
         run: |
           clang --version
@@ -51,8 +54,8 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         env:
-          CC: /usr/local/opt/llvm/bin/clang
-          CXX: /usr/local/opt/llvm/bin/clang++
+          CC: ${{runner.workspace}}/clang-12.0.1/bin/clang
+          CXX: ${{runner.workspace}}/clang-12.0.1/bin/clang++
         run: |
           clang --version
           clang++ --version
