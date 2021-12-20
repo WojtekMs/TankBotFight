@@ -3,6 +3,9 @@
   "version-string": "0.0.1",
   "dependencies": [
     "sfml",
-    "range-v3"
+    {
+    "name": "range-v3",
+    "version-string": "2021-11-02"
+    }
   ]
 }
