@@ -46,7 +46,6 @@ jobs:
           clang --version
           clang++ --version
           cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-          cat ./build/vcpkg-bootstrap.log
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
